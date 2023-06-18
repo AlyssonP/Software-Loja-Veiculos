@@ -1,25 +1,40 @@
 package Model.Entity;
 /**
- *
- * @author Alysson Pereira
+ * @author AlyssonP
  */
 public abstract class Veiculo {
-    private String marca, modelo, cor;
+    private String placa, marca, modelo, cor;
     private double quilomentragem, precoVenda;
     private int ano;
     private boolean vendido;
     
-    public Veiculo(String marca, String modelo, int ano, double precoVenda,String cor, double quilomentragem, boolean vendido) {
+    public Veiculo(String placa, String marca, String modelo, int ano, double precoVenda,String cor, double quilomentragem) {
+        this.placa = placa;
         this.marca = marca;
         this.modelo = modelo;
         this.ano = ano;
         this.precoVenda = precoVenda;
         this.cor = cor;
         this.quilomentragem = quilomentragem;
-        this.vendido = vendido;
+        this.vendido = false;
+    }
+    // Métodos Especiais
+    public boolean venderVeiculo() {
+        if(!vendido) {
+            this.vendido = true;
+            return true;
+        }
+        return false;
     }
     
     // Métodos Get e Set
+    public String getPlaca() {
+        return placa;
+    }
+    public void setPlaca(String placa) {
+        this.placa = placa;
+    }
+    
     public String getMarca() {
         return marca;
     }
@@ -71,7 +86,6 @@ public abstract class Veiculo {
     
     // toString
     public String toString() {
-        return String.format("Marca: %s; Modelo: %s; Ano: %s; Cor: %s; Preço de venda: %.2f; Quilomentragem: %.2f; Esta disponivel? %s;", marca, modelo, ano, cor, precoVenda, quilomentragem, vendido);
+        return String.format("Placa: %s; Marca: %s; Modelo: %s; Ano: %s; Cor: %s; Preço de venda: %.2f; Quilomentragem: %.2f; Esta disponivel? %s;", placa, marca, modelo, ano, cor, precoVenda, quilomentragem, !vendido);
     }
-    
 }
