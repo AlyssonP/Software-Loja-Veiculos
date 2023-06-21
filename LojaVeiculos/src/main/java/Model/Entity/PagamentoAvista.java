@@ -5,8 +5,8 @@ package Model.Entity;
 public class PagamentoAvista extends FormaPagamento{
     private double percentualDisconto;
     
-    public PagamentoAvista(String nome, double percentualDisconto) {
-        super(nome);
+    public PagamentoAvista(int id,String nome, double percentualDisconto) {
+        super(id, nome);
         this.percentualDisconto = percentualDisconto;
     }
     

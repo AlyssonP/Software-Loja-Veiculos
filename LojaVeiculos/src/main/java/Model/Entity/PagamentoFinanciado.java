@@ -6,8 +6,8 @@ public class PagamentoFinanciado extends FormaPagamento{
     private double taxaJuros; 
     private int quantidadeParcelas;
     
-    public PagamentoFinanciado(String nome, double taxaJuros, int quantidadeParcelas) {
-        super(nome);
+    public PagamentoFinanciado(int id, String nome, double taxaJuros, int quantidadeParcelas) {
+        super(id, nome);
         this.taxaJuros = taxaJuros;
         this.quantidadeParcelas = quantidadeParcelas;
     }

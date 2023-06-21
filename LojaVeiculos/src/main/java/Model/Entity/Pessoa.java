@@ -3,13 +3,31 @@ package Model.Entity;
  * @author Alysson Pereira
  */
 public abstract class Pessoa {
+    private int id;
     private String cpf, nome, celular, email;
 
-    public Pessoa(String cpf, String nome, String celular, String email) {
+    public Pessoa(int id, String cpf, String nome, String celular, String email) {
+        this.id = id;
         this.cpf = cpf;
         this.nome = nome;
         this.celular = celular;
         this.email = email;
+    }
+    public Pessoa(String cpf, String nome, String celular, String email) {
+        this.id = 0;
+        this.cpf = cpf;
+        this.nome = nome;
+        this.celular = celular;
+        this.email = email;
+    }
+    
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCpf() {

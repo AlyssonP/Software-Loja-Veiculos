@@ -6,8 +6,8 @@ public class Carro extends Veiculo{
     private int quatidadePorta;
     private String tipoCombustivel, cambio;
     
-    public Carro(String placa, String marca, String modelo, int ano, double precoVenda, String cor, double quilomentragem, int quatidadePorta, String tipoCombustivel, String cambio) {
-        super(placa, marca, modelo, ano, precoVenda, cor, quilomentragem);
+    public Carro(int id, String placa, String marca, String modelo, int ano, double precoVenda, String cor, double quilomentragem, int quatidadePorta, String tipoCombustivel, String cambio) {
+        super(id,placa, marca, modelo, ano, precoVenda, cor, quilomentragem);
         this.quatidadePorta = quatidadePorta;
         this.tipoCombustivel = tipoCombustivel;
         this.cambio = cambio;

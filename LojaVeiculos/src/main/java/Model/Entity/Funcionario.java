@@ -5,8 +5,8 @@ package Model.Entity;
 public class Funcionario extends Pessoa{
     private String senhaAcesso;
     
-    public Funcionario(String cpf, String nome, String celular, String email, String senhaAcesso) {
-        super(cpf, nome, celular, email);
+    public Funcionario(int id, String cpf, String nome, String celular, String email, String senhaAcesso) {
+        super(id, cpf, nome, celular, email);
         this.senhaAcesso = senhaAcesso;
     } 
 

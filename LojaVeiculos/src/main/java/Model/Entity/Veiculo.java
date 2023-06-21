@@ -5,10 +5,11 @@ package Model.Entity;
 public abstract class Veiculo {
     private String placa, marca, modelo, cor;
     private double quilomentragem, precoVenda;
-    private int ano;
+    private int id, ano;
     private boolean vendido;
     
-    public Veiculo(String placa, String marca, String modelo, int ano, double precoVenda,String cor, double quilomentragem) {
+    public Veiculo(int id, String placa, String marca, String modelo, int ano, double precoVenda,String cor, double quilomentragem) {
+        this.id = id;
         this.placa = placa;
         this.marca = marca;
         this.modelo = modelo;
@@ -28,6 +29,15 @@ public abstract class Veiculo {
     }
     
     // Métodos Get e Set
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
     public String getPlaca() {
         return placa;
     }
