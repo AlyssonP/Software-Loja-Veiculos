@@ -1,5 +1,6 @@
 package Model.Entity;
 
+import Model.Repository.CarroRepository;
 import Model.Repository.ClienteRepository;
 import java.util.ArrayList;
 
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         ClienteRepository clienteRepository = new ClienteRepository();
+        CarroRepository carroRepository = new CarroRepository();
         
 //        FormaPagamento avista = new PagamentoAvista(1,"Avista", 10);
 //        FormaPagamento finaciado = new PagamentoFinanciado(2,"Financiado", 1.5, 24);
@@ -43,7 +45,7 @@ public class Main {
         Cliente cli01 = new Cliente("111.222.333-44", "Alysson", "(83)91111-2222", "alysson@gmail.com", "2003-11-21");
         Cliente cli02 = new Cliente("100.200.304-40", "fulanildo", "(83)98888-9022", "fulannildo@gmail.com", "2002-10-10");
 
-        //clienteRepository.createCliente(cli02);
+        //clienteRepository.createCliente(cli01);
         
 //        Cliente clienteConsultado = clienteRepository.getCliente("100.200.304-40");
 //        clienteConsultado.setNome("Fulanildo da Silva");
@@ -54,7 +56,8 @@ public class Main {
 //            System.out.println("ID: "+cliente.getId()+" = "+cliente);
 //        }
         
-        clienteRepository.deleteCliente("100.200.304-40");
+        //clienteRepository.deleteCliente("100.200.304-40");
         
+        System.out.println(carroRepository.getCarro("OAO1A58"));
     }
 }

@@ -67,8 +67,6 @@ public class ClienteRepository {
                         resultSet.getString("celular"),
                         resultSet.getString("email"),
                         formatter.format(data_nascimento));
-                
-                return cliente;
             }            
             
         } catch(SQLException e) {
