@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class ClienteRepository {
     
-    private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     
     public boolean createCliente(Cliente cliente) {
         Connection connection = null;
@@ -47,7 +47,7 @@ public class ClienteRepository {
             return false;
         }
     }
-    
+    //Buscar cliente pelo cpf
     public Cliente getCliente(String cpf) {
         Connection connection = null;
         Cliente cliente = null;
@@ -56,6 +56,38 @@ public class ClienteRepository {
             String codeSql = "SELECT * FROM cliente WHERE cpf=?";
             PreparedStatement preparedStatement = connection.prepareStatement(codeSql);
             preparedStatement.setString(1, cpf);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            if (resultSet.next()) {
+                Date data_nascimento = resultSet.getDate("data_nascimento");
+                cliente = new Cliente(
+                        resultSet.getInt("id"),
+                        resultSet.getString("cpf"),
+                        resultSet.getString("nome"),
+                        resultSet.getString("celular"),
+                        resultSet.getString("email"),
+                        formatter.format(data_nascimento));
+            }            
+            
+        } catch(SQLException e) {
+            System.out.println("Erro ao consultar um cliente: " + e.getMessage());
+        } finally {
+            if (connection != null) {
+                ConnectionDB.closeConnection(connection);
+            }
+            return cliente;
+        }
+    }
+    
+    //Buscar cliente pelo id
+    public Cliente getCliente(int id) {
+        Connection connection = null;
+        Cliente cliente = null;
+        try {
+            connection = ConnectionDB.getConnection();
+            String codeSql = "SELECT * FROM cliente WHERE id=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(codeSql);
+            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             
             if (resultSet.next()) {

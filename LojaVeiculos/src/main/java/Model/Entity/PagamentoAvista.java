@@ -10,6 +10,11 @@ public class PagamentoAvista extends FormaPagamento{
         this.percentualDisconto = percentualDisconto;
     }
     
+    public PagamentoAvista(String nome, double percentualDisconto){
+        super(nome);
+        this.percentualDisconto = percentualDisconto;
+    }
+    
     public double getPercentualDisconto() {
         return percentualDisconto;
     }

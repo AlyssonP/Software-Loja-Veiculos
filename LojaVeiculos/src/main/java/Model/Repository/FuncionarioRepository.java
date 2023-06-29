@@ -31,6 +31,7 @@ public class FuncionarioRepository {
             preparedStatement.setString(4, funcionario.getEmail());
             preparedStatement.setString(5, funcionario.getSenhaAcesso());
             
+            
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Houve algum erro ao criar um funcionário: " + e.getMessage());
@@ -108,7 +109,7 @@ public class FuncionarioRepository {
     public boolean updateFuncionario(Funcionario funcionario) {
         Connection connection = null;
         
-        if(getFuncionario(funcionario.getCpf()) != null) {
+        if(getFuncionario(funcionario.getCpf()) == null) {
             return false;
         }
         
@@ -138,7 +139,7 @@ public class FuncionarioRepository {
     public boolean deleteFuncionario(String cpf) {
         Connection connection = null;
         
-        if(getFuncionario(cpf) != null) {
+        if(getFuncionario(cpf) == null) {
             return false;
         }
         

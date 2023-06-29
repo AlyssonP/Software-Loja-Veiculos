@@ -8,7 +8,7 @@ import java.sql.SQLException;
  * @author aluno
  */
 public class ConnectionDB {
-    private static final String url = "jdbc:postgresql://localhost:5432/LojaVeiculos";
+    private static final String url = "jdbc:postgresql://localhost:5432/ShopMotors";
     private static final String username = "postgres";
     private static final String password = "1100100";
    

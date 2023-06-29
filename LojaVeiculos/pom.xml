@@ -13,13 +13,11 @@
         </repository>
     </repositories>
     <dependencies>
-    
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.6.0</version>
         </dependency>
-        
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -27,4 +25,10 @@
         <maven.compiler.target>17</maven.compiler.target>
         <exec.mainClass>Model.Entity.Main</exec.mainClass>
     </properties>
+    <build>
+        <resources>
+            <directpry>src/main/java</directpry>
+        </resources>
+        
+    </build>
 </project>

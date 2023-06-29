@@ -8,8 +8,20 @@ public abstract class Veiculo {
     private int id, ano;
     private boolean vendido;
     
-    public Veiculo(int id, String placa, String marca, String modelo, int ano, double precoVenda,String cor, double quilomentragem) {
+    public Veiculo(int id, String placa, String marca, String modelo, int ano, double precoVenda,String cor, double quilomentragem, boolean vendido) {
         this.id = id;
+        this.placa = placa;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.ano = ano;
+        this.precoVenda = precoVenda;
+        this.cor = cor;
+        this.quilomentragem = quilomentragem;
+        this.vendido = vendido;
+    }
+    
+    public Veiculo(String placa, String marca, String modelo, int ano, double precoVenda,String cor, double quilomentragem) {
+        this.id = 0;
         this.placa = placa;
         this.marca = marca;
         this.modelo = modelo;

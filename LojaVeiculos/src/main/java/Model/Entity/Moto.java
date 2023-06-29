@@ -5,8 +5,13 @@ package Model.Entity;
 public class Moto extends Veiculo {
     private int cilindrada;
     
-    public Moto(int id, String placa, String marca, String modelo, int ano, double precoVenda, String cor, double quilomentragem, int cilindrada) {
-        super(id,placa,marca, modelo, ano, precoVenda, cor, quilomentragem);
+    public Moto(int id, String placa, String marca, String modelo, int ano, double precoVenda, String cor, double quilomentragem, int cilindrada, boolean vendido) {
+        super(id,placa,marca, modelo, ano, precoVenda, cor, quilomentragem, vendido);
+        this.cilindrada = cilindrada;
+    }
+    
+    public Moto(String placa, String marca, String modelo, int ano, double precoVenda, String cor, double quilomentragem, int cilindrada) {
+        super(placa,marca, modelo, ano, precoVenda, cor, quilomentragem);
         this.cilindrada = cilindrada;
     }
     

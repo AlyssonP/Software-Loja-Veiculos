@@ -11,6 +11,11 @@ public class PagamentoFinanciado extends FormaPagamento{
         this.taxaJuros = taxaJuros;
         this.quantidadeParcelas = quantidadeParcelas;
     }
+    public PagamentoFinanciado(String nome, double taxaJuros, int quantidadeParcelas) {
+        super(nome);
+        this.taxaJuros = taxaJuros;
+        this.quantidadeParcelas = quantidadeParcelas;
+    }
     
     // Gets e Sets
     public double getTaxaJuros() {

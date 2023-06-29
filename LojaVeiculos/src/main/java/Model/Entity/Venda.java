@@ -1,28 +1,50 @@
 package Model.Entity;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author Alysson Pereira
  */
 public class Venda {
+    private int id;
     private Veiculo veiculo;
-    private Pessoa cliente;
+    private Cliente cliente;
     private FormaPagamento formaPagamento;
     private double valorPagamento;
-    private Date dataVenda;
+    private LocalDate dataVenda;
     
-    public Venda(Veiculo veiculo, Pessoa cliente, FormaPagamento formaPagamento, Date dataVenda) {
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    
+    public Venda(Veiculo veiculo, Cliente cliente, FormaPagamento formaPagamento, String dataVenda) {
         this.veiculo = veiculo;
         this.cliente = cliente;
         this.formaPagamento = formaPagamento;
-        this.dataVenda = dataVenda;
+        this.dataVenda = LocalDate.parse(dataVenda, formatter);
         
         valorPagamento = formaPagamento.calcularPagamento(veiculo.getPrecoVenda());
         
-        this.veiculo.setVendido(true);
+        //this.veiculo.setVendido(true);
+    }
+    public Venda(int id,Veiculo veiculo, Cliente cliente, FormaPagamento formaPagamento, String dataVenda) {
+        this.id = id;
+        this.veiculo = veiculo;
+        this.cliente = cliente;
+        this.formaPagamento = formaPagamento;
+        this.dataVenda = LocalDate.parse(dataVenda, formatter);
+        
+        valorPagamento = formaPagamento.calcularPagamento(veiculo.getPrecoVenda());
+        
+        //this.veiculo.setVendido(true);
     }
 
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public Veiculo getVeiculo() {
         return veiculo;
     }
@@ -30,7 +52,7 @@ public class Venda {
         this.veiculo = veiculo;
     }
 
-    public Pessoa getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
     public void setCliente(Cliente cliente) {
@@ -52,11 +74,11 @@ public class Venda {
         this.valorPagamento = valorPagamento;
     }
 
-    public Date getDataVenda() {
+    public LocalDate getDataVenda() {
         return dataVenda;
     }
-    public void setDataVenda(Date dataVenda) {
-        this.dataVenda = dataVenda;
+    public void setDataVenda(String dataVenda) {
+        this.dataVenda = LocalDate.parse(dataVenda, formatter);
     }
     
     @Override

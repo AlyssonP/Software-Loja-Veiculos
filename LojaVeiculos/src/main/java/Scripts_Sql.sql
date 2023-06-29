@@ -35,39 +35,44 @@ CREATE TABLE veiculo (
 );
 
 CREATE TABLE carro (
-	id_veiculo integer REFERENCES veiculo(id) PRIMARY KEY,
+	id_veiculo integer REFERENCES veiculo(id) ON DELETE CASCADE PRIMARY KEY,
 	quantidade_portas integer NOT NULL,
 	tipo_combustivel varchar(100) NOT NULL,
 	cambio varchar(100) NOT NULL
 );
 
 CREATE TABLE moto (
-	id_veiculo integer REFERENCES veiculo(id) PRIMARY KEY,
+	id_veiculo integer REFERENCES veiculo(id) ON DELETE CASCADE PRIMARY KEY,
 	cilindrada integer NOT NULL
 );
 
-CREATE TABLE forma_pagamento (
-	id integer PRIMARY KEY,
+CREATE TABLE tipo_pagamento(
+	id INTEGER PRIMARY KEY,
 	nome varchar(100) NOT NULL
 );
 
-CREATE TABLE pagamento_finaciado (
-	id_forma_pagamento integer REFERENCES forma_pagamento(id) PRIMARY KEY,
+CREATE TABLE forma_pagamento (
+	id SERIAL PRIMARY KEY,
+	id_tipo_pagamento INTEGER REFERENCES tipo_pagamento(id) NOT NULL,
+	nome varchar(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE pagamento_financiado (
+	id_forma_pagamento integer REFERENCES forma_pagamento(id) ON DELETE CASCADE PRIMARY KEY,
 	taxa_juros decimal(3,2) NOT NULL,
-	quantidade integer NOT NULL
+	quantidade_parcelas integer NOT NULL
 );
 
 CREATE TABLE pagamento_avista(
-	id_forma_pagamento integer REFERENCES forma_pagamento(id) PRIMARY KEY,
+	id_forma_pagamento integer REFERENCES forma_pagamento(id) ON DELETE CASCADE PRIMARY KEY,
 	percentual_desconto integer NOT NULL
 );
 
 CREATE TABLE venda (
 	id serial PRIMARY KEY,
-	id_veiculo integer REFERENCES veiculo(id) NOT NULL,
-	id_cliente integer REFERENCES cliente(id) NOT NULL,
-	id_forma_pagamento integer REFERENCES forma_pagamento(id) NOT NULL,
+	id_veiculo integer REFERENCES veiculo(id) ON DELETE CASCADE NOT NULL UNIQUE,
+	id_cliente integer REFERENCES cliente(id) ON DELETE CASCADE NOT NULL,
+	id_forma_pagamento integer REFERENCES forma_pagamento(id) ON DELETE CASCADE NOT NULL,
 	valor_final numeric(100,2) NOT NULL,
 	data_venda date NOT NULL
 );
-

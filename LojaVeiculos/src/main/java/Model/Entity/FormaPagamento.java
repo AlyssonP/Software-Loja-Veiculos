@@ -10,6 +10,9 @@ public abstract class FormaPagamento {
         this.id = id;
         this.nome = nome;
     }
+    public FormaPagamento(String nome) {
+        this.nome = nome;
+    }
     
     // Método Abstrato (Obrigatório)
     public abstract double calcularPagamento(double precoVenda);
