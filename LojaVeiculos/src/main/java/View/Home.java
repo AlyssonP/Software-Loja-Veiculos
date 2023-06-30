@@ -4,17 +4,28 @@
  */
 package View;
 
+import Model.Entity.Carro;
+import Model.Entity.Moto;
+import Model.Repository.CarroRepository;
+import Model.Repository.MotoRepository;
+import java.awt.CardLayout;
+import java.awt.Color;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Alysson Pereira
  */
 public class Home extends javax.swing.JFrame {
-
+    private Color colorEnable, colorDisabled;
     /**
      * Creates new form Home
      */
     public Home() {
         initComponents();
+        colorEnable = new Color(237,114,114);
+        colorDisabled = new Color(212,20,20);
+        btnCarrosMouseClicked(null);
     }
 
     /**
@@ -27,54 +38,467 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         navbar = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        btnCarros = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        btnMotos = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        btnClientes = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        btnVendas = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        btnFuncionarios = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         main = new javax.swing.JPanel();
+        PageCarros = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableCarrosDisponiveis = new javax.swing.JTable();
+        PageMotos = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableMotosDisponiveis = new javax.swing.JTable();
+        PageClientes = new javax.swing.JPanel();
+        PageVendas = new javax.swing.JPanel();
+        PageFuncionarios = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Shop Motors");
 
         navbar.setBackground(new java.awt.Color(212, 20, 20));
+        navbar.setPreferredSize(new java.awt.Dimension(178, 40));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 3, 20)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Shop Motors");
+
+        btnCarros.setBackground(new java.awt.Color(237, 114, 114));
+        btnCarros.setToolTipText("Carros"); // NOI18N
+        btnCarros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCarrosMouseClicked(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Carros");
+
+        javax.swing.GroupLayout btnCarrosLayout = new javax.swing.GroupLayout(btnCarros);
+        btnCarros.setLayout(btnCarrosLayout);
+        btnCarrosLayout.setHorizontalGroup(
+            btnCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnCarrosLayout.createSequentialGroup()
+                .addContainerGap(11, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap(10, Short.MAX_VALUE))
+        );
+        btnCarrosLayout.setVerticalGroup(
+            btnCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnCarrosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        btnMotos.setBackground(new java.awt.Color(212, 20, 20));
+        btnMotos.setToolTipText("Motos");
+        btnMotos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMotosMouseClicked(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Motos");
+
+        javax.swing.GroupLayout btnMotosLayout = new javax.swing.GroupLayout(btnMotos);
+        btnMotos.setLayout(btnMotosLayout);
+        btnMotosLayout.setHorizontalGroup(
+            btnMotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnMotosLayout.createSequentialGroup()
+                .addContainerGap(11, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addContainerGap(10, Short.MAX_VALUE))
+        );
+        btnMotosLayout.setVerticalGroup(
+            btnMotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnMotosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        btnClientes.setBackground(new java.awt.Color(212, 20, 20));
+        btnClientes.setToolTipText("Clientes");
+        btnClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnClientesMouseClicked(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Clientes");
+
+        javax.swing.GroupLayout btnClientesLayout = new javax.swing.GroupLayout(btnClientes);
+        btnClientes.setLayout(btnClientesLayout);
+        btnClientesLayout.setHorizontalGroup(
+            btnClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnClientesLayout.createSequentialGroup()
+                .addContainerGap(11, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addContainerGap(10, Short.MAX_VALUE))
+        );
+        btnClientesLayout.setVerticalGroup(
+            btnClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnClientesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        btnVendas.setBackground(new java.awt.Color(212, 20, 20));
+        btnVendas.setToolTipText("Vendas");
+        btnVendas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVendasMouseClicked(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Vendas");
+
+        javax.swing.GroupLayout btnVendasLayout = new javax.swing.GroupLayout(btnVendas);
+        btnVendas.setLayout(btnVendasLayout);
+        btnVendasLayout.setHorizontalGroup(
+            btnVendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnVendasLayout.createSequentialGroup()
+                .addContainerGap(11, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addContainerGap(10, Short.MAX_VALUE))
+        );
+        btnVendasLayout.setVerticalGroup(
+            btnVendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnVendasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        btnFuncionarios.setBackground(new java.awt.Color(212, 20, 20));
+        btnFuncionarios.setToolTipText("Funcionarios");
+        btnFuncionarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFuncionariosMouseClicked(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Funcionários");
+
+        javax.swing.GroupLayout btnFuncionariosLayout = new javax.swing.GroupLayout(btnFuncionarios);
+        btnFuncionarios.setLayout(btnFuncionariosLayout);
+        btnFuncionariosLayout.setHorizontalGroup(
+            btnFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnFuncionariosLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        btnFuncionariosLayout.setVerticalGroup(
+            btnFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnFuncionariosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout navbarLayout = new javax.swing.GroupLayout(navbar);
         navbar.setLayout(navbarLayout);
         navbarLayout.setHorizontalGroup(
             navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGroup(navbarLayout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(jLabel4)
+                .addGap(30, 30, 30)
+                .addComponent(btnCarros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMotos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVendas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnFuncionarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         navbarLayout.setVerticalGroup(
             navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
+            .addGroup(navbarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(btnCarros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnMotos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnVendas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnFuncionarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         main.setBackground(new java.awt.Color(255, 255, 255));
+        main.setLayout(new java.awt.CardLayout());
 
-        javax.swing.GroupLayout mainLayout = new javax.swing.GroupLayout(main);
-        main.setLayout(mainLayout);
-        mainLayout.setHorizontalGroup(
-            mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        PageCarros.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        jLabel7.setText("Carros");
+
+        tableCarrosDisponiveis.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Marca", "Modelo", "Ano", "Cor", "Quantidade Portas", "Quilometragem", "Câmbio", "Combustivel"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tableCarrosDisponiveis.setGridColor(new java.awt.Color(255, 255, 255));
+        tableCarrosDisponiveis.setSelectionBackground(new java.awt.Color(204, 204, 204));
+        tableCarrosDisponiveis.setSelectionForeground(new java.awt.Color(51, 51, 51));
+        jScrollPane1.setViewportView(tableCarrosDisponiveis);
+        if (tableCarrosDisponiveis.getColumnModel().getColumnCount() > 0) {
+            tableCarrosDisponiveis.getColumnModel().getColumn(6).setHeaderValue("Câmbio");
+            tableCarrosDisponiveis.getColumnModel().getColumn(7).setHeaderValue("Combustivel");
+        }
+
+        javax.swing.GroupLayout PageCarrosLayout = new javax.swing.GroupLayout(PageCarros);
+        PageCarros.setLayout(PageCarrosLayout);
+        PageCarrosLayout.setHorizontalGroup(
+            PageCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PageCarrosLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(PageCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 707, Short.MAX_VALUE))
+                .addGap(67, 67, 67))
         );
-        mainLayout.setVerticalGroup(
-            mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 504, Short.MAX_VALUE)
+        PageCarrosLayout.setVerticalGroup(
+            PageCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PageCarrosLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel7)
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(179, Short.MAX_VALUE))
         );
+
+        main.add(PageCarros, "cardCarros");
+
+        PageMotos.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        jLabel8.setText("Motos");
+
+        tableMotosDisponiveis.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Marca", "Modelo", "Ano", "Cor", "Cilindrada", "Quilometragem"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tableMotosDisponiveis.setGridColor(new java.awt.Color(255, 255, 255));
+        tableMotosDisponiveis.setSelectionBackground(new java.awt.Color(204, 204, 204));
+        tableMotosDisponiveis.setSelectionForeground(new java.awt.Color(51, 51, 51));
+        jScrollPane2.setViewportView(tableMotosDisponiveis);
+
+        javax.swing.GroupLayout PageMotosLayout = new javax.swing.GroupLayout(PageMotos);
+        PageMotos.setLayout(PageMotosLayout);
+        PageMotosLayout.setHorizontalGroup(
+            PageMotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PageMotosLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(PageMotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE)
+                    .addComponent(jLabel8))
+                .addGap(41, 41, 41))
+        );
+        PageMotosLayout.setVerticalGroup(
+            PageMotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PageMotosLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(195, Short.MAX_VALUE))
+        );
+
+        main.add(PageMotos, "cardMotos");
+
+        PageClientes.setBackground(new java.awt.Color(255, 255, 204));
+
+        javax.swing.GroupLayout PageClientesLayout = new javax.swing.GroupLayout(PageClientes);
+        PageClientes.setLayout(PageClientesLayout);
+        PageClientesLayout.setHorizontalGroup(
+            PageClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 800, Short.MAX_VALUE)
+        );
+        PageClientesLayout.setVerticalGroup(
+            PageClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 502, Short.MAX_VALUE)
+        );
+
+        main.add(PageClientes, "cardClientes");
+
+        PageVendas.setBackground(new java.awt.Color(204, 255, 204));
+
+        javax.swing.GroupLayout PageVendasLayout = new javax.swing.GroupLayout(PageVendas);
+        PageVendas.setLayout(PageVendasLayout);
+        PageVendasLayout.setHorizontalGroup(
+            PageVendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 800, Short.MAX_VALUE)
+        );
+        PageVendasLayout.setVerticalGroup(
+            PageVendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 502, Short.MAX_VALUE)
+        );
+
+        main.add(PageVendas, "cardVendas");
+
+        PageFuncionarios.setBackground(new java.awt.Color(255, 204, 255));
+
+        javax.swing.GroupLayout PageFuncionariosLayout = new javax.swing.GroupLayout(PageFuncionarios);
+        PageFuncionarios.setLayout(PageFuncionariosLayout);
+        PageFuncionariosLayout.setHorizontalGroup(
+            PageFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 800, Short.MAX_VALUE)
+        );
+        PageFuncionariosLayout.setVerticalGroup(
+            PageFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 502, Short.MAX_VALUE)
+        );
+
+        main.add(PageFuncionarios, "cardFuncionarios");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(navbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(main, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(navbar, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(navbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(navbar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
                 .addComponent(main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCarrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCarrosMouseClicked
+        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) main.getLayout();
+        cl.show(main, "cardCarros");
+        
+        btnCarros.setBackground(colorEnable);
+        btnMotos.setBackground(colorDisabled);
+        btnClientes.setBackground(colorDisabled);
+        btnVendas.setBackground(colorDisabled);
+        btnFuncionarios.setBackground(colorDisabled);
+        
+        listarCarrosDisponiveis();
+    }//GEN-LAST:event_btnCarrosMouseClicked
+
+    private void btnMotosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMotosMouseClicked
+        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) main.getLayout();
+        cl.show(main, "cardMotos");
+        
+        btnCarros.setBackground(colorDisabled);
+        btnMotos.setBackground(colorEnable);
+        btnClientes.setBackground(colorDisabled);
+        btnVendas.setBackground(colorDisabled);
+        btnFuncionarios.setBackground(colorDisabled);
+        
+        listarMotosDisponiveis();
+    }//GEN-LAST:event_btnMotosMouseClicked
+
+    private void btnClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClientesMouseClicked
+        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) main.getLayout();
+        cl.show(main, "cardClientes");
+        
+        btnCarros.setBackground(colorDisabled);
+        btnMotos.setBackground(colorDisabled);
+        btnClientes.setBackground(colorEnable);
+        btnVendas.setBackground(colorDisabled);
+        btnFuncionarios.setBackground(colorDisabled);
+    }//GEN-LAST:event_btnClientesMouseClicked
+
+    private void btnVendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVendasMouseClicked
+        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) main.getLayout();
+        cl.show(main, "cardVendas");
+        
+        btnCarros.setBackground(colorDisabled);
+        btnMotos.setBackground(colorDisabled);
+        btnClientes.setBackground(colorDisabled);
+        btnVendas.setBackground(colorEnable);
+        btnFuncionarios.setBackground(colorDisabled);
+    }//GEN-LAST:event_btnVendasMouseClicked
+
+    private void btnFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFuncionariosMouseClicked
+        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) main.getLayout();
+        cl.show(main, "cardFuncionarios");
+        
+        btnCarros.setBackground(colorDisabled);
+        btnMotos.setBackground(colorDisabled);
+        btnClientes.setBackground(colorDisabled);
+        btnVendas.setBackground(colorDisabled);
+        btnFuncionarios.setBackground(colorEnable);
+    }//GEN-LAST:event_btnFuncionariosMouseClicked
+    
+    public void listarCarrosDisponiveis() {
+        DefaultTableModel modelo = (DefaultTableModel) tableCarrosDisponiveis.getModel();
+        modelo.setNumRows(0);
+        CarroRepository carroRepository = new CarroRepository();
+        for (Carro carro : carroRepository.getAll()) {
+            modelo.addRow(new Object[]{carro.getMarca(), carro.getModelo(), carro.getAno(), carro.getCor(), carro.getQuatidadePorta(), carro.getQuilomentragem(), carro.getCambio() ,carro.getTipoCombustivel()});
+        }
+    }
+    
+     public void listarMotosDisponiveis() {
+        DefaultTableModel modelo = (DefaultTableModel) tableMotosDisponiveis.getModel();
+        modelo.setNumRows(0);
+        MotoRepository motoRepository = new MotoRepository();
+        for (Moto moto : motoRepository.getAll()) {
+            modelo.addRow(new Object[]{moto.getMarca(), moto.getModelo(), moto.getAno(), moto.getCor(), moto.getCilindrada(), moto.getQuilomentragem()});
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -111,7 +535,29 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PageCarros;
+    private javax.swing.JPanel PageClientes;
+    private javax.swing.JPanel PageFuncionarios;
+    private javax.swing.JPanel PageMotos;
+    private javax.swing.JPanel PageVendas;
+    private javax.swing.JPanel btnCarros;
+    private javax.swing.JPanel btnClientes;
+    private javax.swing.JPanel btnFuncionarios;
+    private javax.swing.JPanel btnMotos;
+    private javax.swing.JPanel btnVendas;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel main;
     private javax.swing.JPanel navbar;
+    private javax.swing.JTable tableCarrosDisponiveis;
+    private javax.swing.JTable tableMotosDisponiveis;
     // End of variables declaration//GEN-END:variables
 }
