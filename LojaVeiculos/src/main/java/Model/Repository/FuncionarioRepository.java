@@ -75,6 +75,55 @@ public class FuncionarioRepository {
         }
     }
     
+    public boolean isEmailCadastrado(String email) {
+        Connection connection = null;
+        boolean isCadastrado = false;
+        try {
+            connection = ConnectionDB.getConnection();
+            String codeSql = "SELECT cpf FROM funcionario WHERE email = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(codeSql);
+            preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            if (resultSet.next()) {
+                isCadastrado = true;
+            }            
+            
+        } catch(SQLException e) {
+            System.out.println("Erro ao consultar um Funcionario: " + e.getMessage());
+        } finally {
+            if (connection != null) {
+                ConnectionDB.closeConnection(connection);
+            }
+            return isCadastrado;
+        }
+    }
+    
+    public boolean loginFuncionario(String email, String senha) {
+        boolean dadosCorretos = false;
+        Connection connection = null;
+        try {
+            connection = ConnectionDB.getConnection();
+            String codeSql = "SELECT * FROM funcionario WHERE email = ? AND senha = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(codeSql);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, senha);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            if(resultSet.next()) {
+                dadosCorretos = true;
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("Houve algum erro ao fazer login do funcionário: " + e.getMessage());
+        } finally {
+            if(connection != null) {
+                ConnectionDB.closeConnection(connection);
+            }
+            return dadosCorretos;
+        }
+    }
+    
     public ArrayList<Funcionario> getAll() {
         ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
         Connection connection = null;
@@ -109,7 +158,8 @@ public class FuncionarioRepository {
     public boolean updateFuncionario(Funcionario funcionario) {
         Connection connection = null;
         
-        if(getFuncionario(funcionario.getCpf()) == null) {
+        Funcionario isFuncionario = getFuncionario(funcionario.getCpf());
+        if( isFuncionario == null) {
             return false;
         }
         
@@ -122,7 +172,7 @@ public class FuncionarioRepository {
             preparedStatement.setString(3, funcionario.getCelular());
             preparedStatement.setString(4, funcionario.getEmail());
             preparedStatement.setString(5, funcionario.getSenhaAcesso());
-            preparedStatement.setInt(6, funcionario.getId());
+            preparedStatement.setInt(6, isFuncionario.getId());
             
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

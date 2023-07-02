@@ -127,6 +127,36 @@ public class VeiculoRepository {
         }
     }
     
+    public boolean desvenderVeiculo(Veiculo veiculo) {
+        Connection connection = null;
+        boolean isVendido = false;
+        
+        int idVeiculo = veiculo.getId();
+        if(idVeiculo == -1) {
+            return isVendido;
+        }
+        
+        veiculo.venderVeiculo();
+        
+        try {
+            connection = ConnectionDB.getConnection();
+            String codeSql = "UPDATE veiculo SET vendido=? WHERE id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(codeSql);
+            preparedStatement.setBoolean(1, false);
+            preparedStatement.setInt(2, idVeiculo);
+            preparedStatement.executeUpdate();
+            
+            isVendido = true;
+        } catch (SQLException e) {
+            System.out.println("Houve algum erro ao desvender veiculo: " + e.getMessage());
+        } finally {
+            if(connection != null) {
+                ConnectionDB.closeConnection(connection);
+            }
+            return isVendido;
+        }
+    }
+    
     public boolean deleteVeiculo(String placa) {
         
         int idVeiculo = getIdVeiculo(placa);

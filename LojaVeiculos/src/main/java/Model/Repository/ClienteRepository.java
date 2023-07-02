@@ -111,6 +111,31 @@ public class ClienteRepository {
         }
     }
     
+    public boolean isEmailCadastrado(String email) {
+        Connection connection = null;
+        boolean isCadastrado = false;
+        try {
+            connection = ConnectionDB.getConnection();
+            String codeSql = "SELECT cpf FROM cliente WHERE email = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(codeSql);
+            preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            if (resultSet.next()) {
+                isCadastrado = true;
+            }            
+            
+        } catch(SQLException e) {
+            System.out.println("Erro ao consultar um cliente: " + e.getMessage());
+        } finally {
+            if (connection != null) {
+                ConnectionDB.closeConnection(connection);
+            }
+            return isCadastrado;
+        }
+    }
+    
+    
     public ArrayList<Cliente> readAll() {
         ArrayList<Cliente> clientes = new ArrayList<Cliente>();
         Connection connection = null;
@@ -145,7 +170,7 @@ public class ClienteRepository {
     
     public boolean updateCliente(Cliente cliente) {
         Connection connection = null;
-        
+        Boolean isUpdate = false;
         Cliente isCliente = getCliente(cliente.getCpf());
         if (isCliente == null) {
             return false;
@@ -160,17 +185,17 @@ public class ClienteRepository {
             preparedStatement.setString(3, cliente.getCelular());
             preparedStatement.setString(4, cliente.getEmail());
             preparedStatement.setDate(5, Date.valueOf(cliente.getDataNascimento()));
-            preparedStatement.setInt(6, cliente.getId());
+            preparedStatement.setInt(6, isCliente.getId());
             
             preparedStatement.executeUpdate();
+            isUpdate = true;
         } catch(SQLException e) {
             System.out.println("Erro ao criar cliente: " + e.getMessage());
         } finally {
             if (connection != null) {
                 ConnectionDB.closeConnection(connection);
-                return true;
             }
-            return false;
+            return isUpdate;
         }
     }
 

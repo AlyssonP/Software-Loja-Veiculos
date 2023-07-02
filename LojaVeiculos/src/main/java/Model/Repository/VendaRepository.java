@@ -87,6 +87,39 @@ public class VendaRepository {
         }
     }
     
+    public Venda getVenda(String placaVeiculo) {
+        Connection connection = null;
+        Venda venda = null;
+        Veiculo isVeiculo = veiculoRepository.getVeiculo(placaVeiculo);
+        if(isVeiculo == null) {
+            return null;
+        }
+        try{
+            connection = ConnectionDB.getConnection();
+            String codeSql = "SELECT * FROM venda where id_veiculo=?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(codeSql);
+            preparedStatement.setInt(1, isVeiculo.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            if(resultSet.next()) {
+                Veiculo veiculo = veiculoRepository.getVeiculo(resultSet.getInt("id_veiculo"));
+                Cliente cliente = clienteRepository.getCliente(resultSet.getInt("id_cliente"));
+                FormaPagamento formaPagamento = formaPagamentoRepository.getFormaPagamento(resultSet.getInt("id_forma_pagamento"));
+                String dataVenda = formatter.format(resultSet.getDate("data_venda"));
+              
+                venda = new Venda(resultSet.getInt("id"), veiculo, cliente, formaPagamento, dataVenda);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("Houve um erro ao buscar uma venda: " + e.getMessage());
+        } finally {
+            if(connection != null) {
+                ConnectionDB.closeConnection(connection);
+            }
+            return venda;
+        }
+    }
+    
     public ArrayList<Venda> getAll() {
         ArrayList<Venda> vendas = new ArrayList<Venda>();
         Connection connection = null;
@@ -114,11 +147,39 @@ public class VendaRepository {
         }
     }
     
-    public void updateVenda(Venda venda) {
-        
+    public boolean updateVenda(Venda venda) {
+        Veiculo veiculo = venda.getVeiculo();
+        Cliente cliente = venda.getCliente();
+        FormaPagamento formaPagamento = venda.getFormaPagamento();
+        venda.setValorPagamento();
+        boolean isUpdate = false;
+        Connection connection = null;
+        try {
+            connection = ConnectionDB.getConnection();
+            String codeSql = "UPDATE venda SET id_veiculo = ?, id_cliente = ?, id_forma_pagamento = ?, valor_final = ?, data_venda = ? WHERE id = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(codeSql);
+            preparedStatement.setInt(1,veiculo.getId());
+            preparedStatement.setInt(2,cliente.getId());
+            preparedStatement.setInt(3,formaPagamento.getId());
+            preparedStatement.setDouble(4, venda.getValorPagamento());
+            preparedStatement.setDate(5, (Date) Date.valueOf(venda.getDataVenda()));
+            preparedStatement.setInt(6, venda.getId());
+            
+            preparedStatement.executeUpdate();
+            isUpdate = true;
+        } catch (SQLException e) {
+            System.out.println("Houve um erro ao atualizar a venda do veiculo: " + e.getMessage());
+        } finally {
+            if(connection != null) {
+                ConnectionDB.closeConnection(connection);
+            }
+            return isUpdate;
+        }
     }
     
     public boolean deleteVenda(Venda venda) {
+        Veiculo veiculo = venda.getVeiculo();
+        boolean isDesvendido = false;
         
         int idVenda = venda.getId();
         if(idVenda == 0) {
@@ -133,15 +194,17 @@ public class VendaRepository {
             PreparedStatement preparedStatement = connection.prepareStatement(codeSql);
             preparedStatement.setInt(1, idVenda);
             
-            preparedStatement.executeUpdate();
+            isDesvendido = veiculoRepository.desvenderVeiculo(veiculo);
+            if(isDesvendido) {
+                preparedStatement.executeUpdate();
+            }
         } catch(SQLException e) {
             System.out.println("Houve um erro ao deletar a venda: " + e.getMessage());
         } finally {
             if(connection != null) {
                 ConnectionDB.closeConnection(connection);
-                return true;
             }
-            return false;
+            return isDesvendido;
         }
     }
 }

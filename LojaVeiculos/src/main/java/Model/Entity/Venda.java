@@ -70,8 +70,8 @@ public class Venda {
         return valorPagamento;
     }
 
-    public void setValorPagamento(double valorPagamento) {
-        this.valorPagamento = valorPagamento;
+    public void setValorPagamento() {
+        this.valorPagamento = formaPagamento.calcularPagamento(veiculo.getPrecoVenda());
     }
 
     public LocalDate getDataVenda() {

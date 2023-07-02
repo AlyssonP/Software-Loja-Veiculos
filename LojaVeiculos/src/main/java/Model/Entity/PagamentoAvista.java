@@ -32,8 +32,8 @@ public class PagamentoAvista extends FormaPagamento{
         return precoVenda - calcularValorDisconto(precoVenda);
     }
     
-    @Override
-    public String toString() {
-        return String.format(super.toString() + " Percentual de Disconto: %.2f",percentualDisconto);
-    }
+//    @Override
+//    public String toString() {
+//        return String.format(super.toString() + " Percentual de Disconto: %.2f",percentualDisconto);
+//    }
 }

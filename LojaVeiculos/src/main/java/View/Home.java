@@ -10,6 +10,8 @@ import Model.Repository.CarroRepository;
 import Model.Repository.MotoRepository;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,6 +19,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Alysson Pereira
  */
 public class Home extends javax.swing.JFrame {
+    private static final CarroRepository carroRepository = new CarroRepository();
+    private static final MotoRepository motoRepository = new MotoRepository();
     private Color colorEnable, colorDisabled;
     /**
      * Creates new form Home
@@ -54,6 +58,13 @@ public class Home extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableCarrosDisponiveis = new javax.swing.JTable();
+        cbAnoCarro = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        cbModeloCarro = new javax.swing.JComboBox<>();
+        btnBuscarCarro = new javax.swing.JButton();
+        btnVender = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         PageMotos = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -255,7 +266,7 @@ public class Home extends javax.swing.JFrame {
         PageCarros.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        jLabel7.setText("Carros");
+        jLabel7.setText("Nossos Carros");
 
         tableCarrosDisponiveis.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -273,34 +284,88 @@ public class Home extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tableCarrosDisponiveis.setFocusable(false);
         tableCarrosDisponiveis.setGridColor(new java.awt.Color(255, 255, 255));
-        tableCarrosDisponiveis.setSelectionBackground(new java.awt.Color(204, 204, 204));
-        tableCarrosDisponiveis.setSelectionForeground(new java.awt.Color(51, 51, 51));
+        tableCarrosDisponiveis.setSelectionBackground(new java.awt.Color(128, 26, 26));
+        tableCarrosDisponiveis.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        tableCarrosDisponiveis.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tableCarrosDisponiveis);
-        if (tableCarrosDisponiveis.getColumnModel().getColumnCount() > 0) {
-            tableCarrosDisponiveis.getColumnModel().getColumn(6).setHeaderValue("Câmbio");
-            tableCarrosDisponiveis.getColumnModel().getColumn(7).setHeaderValue("Combustivel");
-        }
+
+        jLabel9.setText("Ano");
+
+        jLabel10.setText("Modelo");
+
+        btnBuscarCarro.setText("Buscar");
+        btnBuscarCarro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarCarroActionPerformed(evt);
+            }
+        });
+
+        btnVender.setText("Vender");
+        btnVender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVenderActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Gerenciar Carro");
 
         javax.swing.GroupLayout PageCarrosLayout = new javax.swing.GroupLayout(PageCarros);
         PageCarros.setLayout(PageCarrosLayout);
         PageCarrosLayout.setHorizontalGroup(
             PageCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PageCarrosLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(106, 106, 106)
                 .addGroup(PageCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 707, Short.MAX_VALUE))
-                .addGap(67, 67, 67))
+                    .addGroup(PageCarrosLayout.createSequentialGroup()
+                        .addGroup(PageCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(cbModeloCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PageCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PageCarrosLayout.createSequentialGroup()
+                                .addComponent(cbAnoCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBuscarCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(361, Short.MAX_VALUE))
+                    .addGroup(PageCarrosLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PageCarrosLayout.createSequentialGroup()
+                        .addGroup(PageCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(PageCarrosLayout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnVender, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(25, 25, 25))))
         );
         PageCarrosLayout.setVerticalGroup(
             PageCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PageCarrosLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel7)
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PageCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(PageCarrosLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbModeloCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PageCarrosLayout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PageCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbAnoCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBuscarCarro))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PageCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnVender)
+                    .addComponent(jButton1))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         main.add(PageCarros, "cardCarros");
@@ -420,7 +485,7 @@ public class Home extends javax.swing.JFrame {
     private void btnCarrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCarrosMouseClicked
         // TODO add your handling code here:
         CardLayout cl = (CardLayout) main.getLayout();
-        cl.show(main, "cardCarros");
+        cl.show(main, "cardHome");
         
         btnCarros.setBackground(colorEnable);
         btnMotos.setBackground(colorDisabled);
@@ -429,6 +494,9 @@ public class Home extends javax.swing.JFrame {
         btnFuncionarios.setBackground(colorDisabled);
         
         listarCarrosDisponiveis();
+        
+        selectModelo(cbModeloCarro, 1);
+        selectAno(cbAnoCarro, 1);
     }//GEN-LAST:event_btnCarrosMouseClicked
 
     private void btnMotosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMotosMouseClicked
@@ -480,25 +548,80 @@ public class Home extends javax.swing.JFrame {
         btnVendas.setBackground(colorDisabled);
         btnFuncionarios.setBackground(colorEnable);
     }//GEN-LAST:event_btnFuncionariosMouseClicked
+
+    private void btnBuscarCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCarroActionPerformed
+        // TODO add your handling code here:
+        String modeloCarro = (String) cbModeloCarro.getSelectedItem();
+        int anoCarro = (int) cbAnoCarro.getSelectedItem();
+        
+        JOptionPane.showMessageDialog(null, String.format("Modelo: %s, Ano: %d", modeloCarro, anoCarro));
+    }//GEN-LAST:event_btnBuscarCarroActionPerformed
+
+    private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVenderActionPerformed
     
     public void listarCarrosDisponiveis() {
-        DefaultTableModel modelo = (DefaultTableModel) tableCarrosDisponiveis.getModel();
-        modelo.setNumRows(0);
-        CarroRepository carroRepository = new CarroRepository();
+        DefaultTableModel table = (DefaultTableModel) tableCarrosDisponiveis.getModel();
+        table.setNumRows(0);
         for (Carro carro : carroRepository.getAll()) {
-            modelo.addRow(new Object[]{carro.getMarca(), carro.getModelo(), carro.getAno(), carro.getCor(), carro.getQuatidadePorta(), carro.getQuilomentragem(), carro.getCambio() ,carro.getTipoCombustivel()});
+            table.addRow(new Object[]{
+                carro.getMarca(), 
+                carro.getModelo(), 
+                carro.getAno(), 
+                carro.getCor(), 
+                carro.getQuatidadePorta(), 
+                carro.getQuilomentragem(), 
+                carro.getCambio(),
+                carro.getTipoCombustivel()
+            });
         }
     }
     
-     public void listarMotosDisponiveis() {
+    public void listarMotosDisponiveis() {
         DefaultTableModel modelo = (DefaultTableModel) tableMotosDisponiveis.getModel();
         modelo.setNumRows(0);
-        MotoRepository motoRepository = new MotoRepository();
         for (Moto moto : motoRepository.getAll()) {
-            modelo.addRow(new Object[]{moto.getMarca(), moto.getModelo(), moto.getAno(), moto.getCor(), moto.getCilindrada(), moto.getQuilomentragem()});
+            modelo.addRow(new Object[]{
+                moto.getMarca(),
+                moto.getModelo(), 
+                moto.getAno(), 
+                moto.getCor(), 
+                moto.getCilindrada(), 
+                moto.getQuilomentragem()
+            });
         }
     }
     
+    public void selectModelo(javax.swing.JComboBox cb, int tipo_veiculo) {
+        cb.removeAllItems();
+        if(tipo_veiculo == 1) {
+            ArrayList<Carro> carros = carroRepository.getAll();
+            for(Carro c: carros) {
+                cb.addItem(c.getModelo());
+            }
+        } else if(tipo_veiculo == 2) {
+            ArrayList<Moto> motos = motoRepository.getAll();
+            for(Moto m: motos) {
+                cb.addItem(m.getModelo());
+            }
+        }
+    }
+    
+    public void selectAno(javax.swing.JComboBox cb, int tipo_veiculo) {
+        cb.removeAllItems();
+        if(tipo_veiculo == 1) {
+            ArrayList<Carro> carros = carroRepository.getAll();
+            for(Carro c: carros) {
+                cb.addItem(c.getAno());
+            }
+        } else if(tipo_veiculo == 2) {
+            ArrayList<Moto> motos = motoRepository.getAll();
+            for(Moto m: motos) {
+                cb.addItem(m.getAno());
+            }
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -540,12 +663,18 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel PageFuncionarios;
     private javax.swing.JPanel PageMotos;
     private javax.swing.JPanel PageVendas;
+    private javax.swing.JButton btnBuscarCarro;
     private javax.swing.JPanel btnCarros;
     private javax.swing.JPanel btnClientes;
     private javax.swing.JPanel btnFuncionarios;
     private javax.swing.JPanel btnMotos;
     private javax.swing.JPanel btnVendas;
+    private javax.swing.JButton btnVender;
+    private javax.swing.JComboBox<Integer> cbAnoCarro;
+    private javax.swing.JComboBox<String> cbModeloCarro;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -553,6 +682,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel main;

@@ -32,7 +32,7 @@ public abstract class FormaPagamento {
     }
     
     public String toString() {
-        return String.format("Forma de pagamento: %s;",nome);
+        return String.format(nome);
     }
     
 }

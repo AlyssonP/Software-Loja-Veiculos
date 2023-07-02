@@ -53,8 +53,8 @@ public class PagamentoFinanciado extends FormaPagamento{
         return precoVenda + calcularJurosTotal(precoVenda);
     }
     
-    @Override
-    public String toString() {
-        return String.format(super.toString() + " TaxaJuros: %.2f, Quantidade de Parcelas: %d;", taxaJuros, quantidadeParcelas);
-    }
+//    @Override
+//    public String toString() {
+//        return String.format(super.toString() + " TaxaJuros: %.2f, Quantidade de Parcelas: %d;", taxaJuros, quantidadeParcelas);
+//    }
 }
