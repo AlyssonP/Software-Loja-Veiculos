@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import Model.Entity.Carro;
@@ -20,8 +16,6 @@ import Model.Repository.VeiculoRepository;
 import Model.Repository.VendaRepository;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.event.ItemListener;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
@@ -64,7 +58,7 @@ public class Gerenciador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        navbar1 = new javax.swing.JPanel();
+        navbar = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         btnCarro = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -172,6 +166,7 @@ public class Gerenciador extends javax.swing.JFrame {
         btnDesselecionarVenda = new javax.swing.JButton();
         btnDataAtual = new javax.swing.JButton();
         btnLimparCamposVenda = new javax.swing.JButton();
+        btnCriarPagamento = new javax.swing.JButton();
         PageFuncionarios = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tableFuncionarios = new javax.swing.JTable();
@@ -193,9 +188,10 @@ public class Gerenciador extends javax.swing.JFrame {
         inputSenhaAcesso = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SHOP MOTORS - Gerenciamento");
 
-        navbar1.setBackground(new java.awt.Color(212, 20, 20));
-        navbar1.setPreferredSize(new java.awt.Dimension(178, 40));
+        navbar.setBackground(new java.awt.Color(212, 20, 20));
+        navbar.setPreferredSize(new java.awt.Dimension(178, 40));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 20)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -346,11 +342,11 @@ public class Gerenciador extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout navbar1Layout = new javax.swing.GroupLayout(navbar1);
-        navbar1.setLayout(navbar1Layout);
-        navbar1Layout.setHorizontalGroup(
-            navbar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(navbar1Layout.createSequentialGroup()
+        javax.swing.GroupLayout navbarLayout = new javax.swing.GroupLayout(navbar);
+        navbar.setLayout(navbarLayout);
+        navbarLayout.setHorizontalGroup(
+            navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(navbarLayout.createSequentialGroup()
                 .addGap(57, 57, 57)
                 .addComponent(jLabel5)
                 .addGap(30, 30, 30)
@@ -365,9 +361,9 @@ public class Gerenciador extends javax.swing.JFrame {
                 .addComponent(btnFuncionarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        navbar1Layout.setVerticalGroup(
-            navbar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(navbar1Layout.createSequentialGroup()
+        navbarLayout.setVerticalGroup(
+            navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(navbarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -540,7 +536,7 @@ public class Gerenciador extends javax.swing.JFrame {
                                 .addComponent(jLabel16)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(inputAnoCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 90, Short.MAX_VALUE))))
+                        .addGap(0, 105, Short.MAX_VALUE))))
         );
         PageCarrosLayout.setVerticalGroup(
             PageCarrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -707,7 +703,7 @@ public class Gerenciador extends javax.swing.JFrame {
                                     .addComponent(btnExcluirMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnDesselecionar02))
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE))
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 777, Short.MAX_VALUE))
                             .addGroup(PageMotosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(inputPrecoVendaMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PageMotosLayout.createSequentialGroup()
@@ -901,7 +897,7 @@ public class Gerenciador extends javax.swing.JFrame {
                                 .addComponent(inputEmailCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnLimparCamposCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 118, Short.MAX_VALUE))
+                        .addGap(0, 133, Short.MAX_VALUE))
                     .addGroup(PageClientesLayout.createSequentialGroup()
                         .addComponent(btnCadastrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1059,6 +1055,13 @@ public class Gerenciador extends javax.swing.JFrame {
             }
         });
 
+        btnCriarPagamento.setText("Criar Pagamento");
+        btnCriarPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCriarPagamentoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PageVendasLayout = new javax.swing.GroupLayout(PageVendas);
         PageVendas.setLayout(PageVendasLayout);
         PageVendasLayout.setHorizontalGroup(
@@ -1096,7 +1099,10 @@ public class Gerenciador extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(PageVendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cbFormasPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel42)))
+                                    .addGroup(PageVendasLayout.createSequentialGroup()
+                                        .addComponent(jLabel42)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnCriarPagamento))))
                             .addGroup(PageVendasLayout.createSequentialGroup()
                                 .addComponent(btnDataAtual)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1110,7 +1116,7 @@ public class Gerenciador extends javax.swing.JFrame {
                         .addComponent(btnExcluirVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnDesselecionarVenda))
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 755, Short.MAX_VALUE))
+                    .addComponent(jScrollPane5))
                 .addGap(35, 35, 35))
         );
         PageVendasLayout.setVerticalGroup(
@@ -1121,7 +1127,9 @@ public class Gerenciador extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(PageVendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PageVendasLayout.createSequentialGroup()
-                        .addComponent(jLabel42)
+                        .addGroup(PageVendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel42)
+                            .addComponent(btnCriarPagamento))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbFormasPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PageVendasLayout.createSequentialGroup()
@@ -1279,7 +1287,7 @@ public class Gerenciador extends javax.swing.JFrame {
                                 .addComponent(inputSenhaAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnLimparCamposCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 118, Short.MAX_VALUE))
+                        .addGap(0, 133, Short.MAX_VALUE))
                     .addGroup(PageFuncionariosLayout.createSequentialGroup()
                         .addComponent(btnCadastrarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1327,18 +1335,19 @@ public class Gerenciador extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(navbar1, javax.swing.GroupLayout.DEFAULT_SIZE, 816, Short.MAX_VALUE)
+            .addComponent(navbar, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
             .addComponent(main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(navbar1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(navbar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addComponent(main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
     // Navegação
@@ -1721,6 +1730,7 @@ public class Gerenciador extends javax.swing.JFrame {
         tableFuncionarios.clearSelection();
     }//GEN-LAST:event_btnDesselecionarFuncionarioActionPerformed
 
+    // Funções para gerenciamento de Venda de veiuclos
     private void btnCadastrarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarVendaActionPerformed
         // TODO add your handling code here:
         Venda venda = leituraInputsVenda();
@@ -1812,6 +1822,11 @@ public class Gerenciador extends javax.swing.JFrame {
     private void btnBustarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBustarClienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBustarClienteActionPerformed
+
+    private void btnCriarPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarPagamentoActionPerformed
+        // TODO add your handling code here:
+        new GerenciarFormasPagamento().setVisible(true);
+    }//GEN-LAST:event_btnCriarPagamentoActionPerformed
     
     
     /*
@@ -2645,6 +2660,7 @@ public class Gerenciador extends javax.swing.JFrame {
     private javax.swing.JButton btnCadastrarVenda;
     private javax.swing.JPanel btnCarro;
     private javax.swing.JPanel btnClientes;
+    private javax.swing.JButton btnCriarPagamento;
     private javax.swing.JButton btnDataAtual;
     private javax.swing.JButton btnDesselecionar;
     private javax.swing.JButton btnDesselecionar02;
@@ -2745,7 +2761,7 @@ public class Gerenciador extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JPanel main;
-    private javax.swing.JPanel navbar1;
+    private javax.swing.JPanel navbar;
     private javax.swing.JLabel resultBuscaCliente;
     private javax.swing.JLabel resultBuscaVeiculo;
     private javax.swing.JTable tableCarros;
@@ -2755,7 +2771,4 @@ public class Gerenciador extends javax.swing.JFrame {
     private javax.swing.JTable tableVendas;
     // End of variables declaration//GEN-END:variables
 
-    private Cliente lituraInputsCliente() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }

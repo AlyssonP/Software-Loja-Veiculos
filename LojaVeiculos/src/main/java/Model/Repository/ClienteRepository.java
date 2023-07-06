@@ -135,7 +135,6 @@ public class ClienteRepository {
         }
     }
     
-    
     public ArrayList<Cliente> readAll() {
         ArrayList<Cliente> clientes = new ArrayList<Cliente>();
         Connection connection = null;

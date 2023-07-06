@@ -1,6 +1,7 @@
 package Model.Repository;
 
 import Model.Entity.FormaPagamento;
+import Model.Entity.Venda;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,6 +21,7 @@ public class FormaPagamentoRepository {
         Connection connection = null;
         try {
             connection = ConnectionDB.getConnection();
+            
             String codeSql = "SELECT * FROM tipo_pagamento WHERE nome=?;";
             PreparedStatement preparedStatement = connection.prepareStatement(codeSql);
             preparedStatement.setString(1, nome);
@@ -120,7 +122,39 @@ public class FormaPagamentoRepository {
         }
     }
     
+    public boolean isVendaFormaPagamento(int condigoForma) {
+        if(getFormaPagamento(condigoForma) == null) {
+            return false;
+        }
+        
+        boolean isVenda = false;
+        
+        Connection connection = null;
+        try {
+            connection = ConnectionDB.getConnection();
+            String codeSql = "SELECT * FROM venda v, forma_pagamento fp WHERE v.id_forma_pagamento = fp.id AND fp.id =?";
+            PreparedStatement preparedStatement = connection.prepareStatement(codeSql);
+            preparedStatement.setInt(1, condigoForma);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            if(resultSet.next()) {
+                isVenda = true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Houve um erro ao vereifica venda com a forma de pagamento: " + e.getMessage());
+        } finally {
+            if(connection != null) {
+                ConnectionDB.closeConnection(connection);
+            }
+            return isVenda;
+        }
+    }
+    
     public boolean deleteFormaPagamento(int id) {
+        if(isVendaFormaPagamento(id)) {
+            return false;
+        }
+        
         Connection connection = null;
         try {
             connection = ConnectionDB.getConnection();

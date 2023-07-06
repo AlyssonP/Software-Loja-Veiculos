@@ -19,15 +19,18 @@ public class PagamentoAvistaRepository {
         boolean isCadastrou = false;
         
         int idTipoPagamento = formaPagamentoRepository.getIdTipoPagamento("A vista");
+        System.out.println(idTipoPagamento);
         if(idTipoPagamento == -1) {
             return false;
         }
+        
         
         try {
             connection = ConnectionDB.getConnection();
             
             String codeSql = "INSERT INTO forma_pagamento (id_tipo_pagamento, nome) VALUES (?, ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(codeSql);
+            
             preparedStatement.setInt(1, idTipoPagamento);
             preparedStatement.setString(2, pagamentoAvista.getNome());
             preparedStatement.executeUpdate();
@@ -110,16 +113,21 @@ public class PagamentoAvistaRepository {
             
     public boolean updatePagamentoAvista(PagamentoAvista pagamentoAvista) {
         int idPagamento = formaPagamentoRepository.getIdFormaPagamento(pagamentoAvista.getNome());
+        
         if(idPagamento == -1) {
             return false;
         }
         
         Connection connection = null;
+        
         try {
-            String codeSql = "UPDATE forma_pagamento SET nome=? WHARE id = ?";
+            connection = ConnectionDB.getConnection();
+            String codeSql = "UPDATE forma_pagamento SET nome=? WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(codeSql);
             preparedStatement.setString(1, pagamentoAvista.getNome());
+            
             preparedStatement.setInt(2,idPagamento);
+            
             preparedStatement.executeUpdate();
             
             if(idPagamento != -1) {

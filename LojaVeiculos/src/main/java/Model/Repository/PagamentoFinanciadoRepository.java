@@ -120,18 +120,19 @@ public class PagamentoFinanciadoRepository {
         
         Connection connection = null;
         try {
-            String codeSql = "UPDATE forma_pagamento SET nome=? WHARE id = ?";
+            connection = ConnectionDB.getConnection();
+            String codeSql = "UPDATE forma_pagamento SET nome=? WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(codeSql);
             preparedStatement.setString(1, pagamentoFinanciado.getNome());
             preparedStatement.setInt(2,idPagamento);
             preparedStatement.executeUpdate();
             
             if(idPagamento != -1) {
-                codeSql = "INSERT INTO pagamento_financiado (id_forma_pagamento, taxa_juros, quantidade_parcelas) VALUES (?, ?, ?)";
+                codeSql = "UPDATE pagamento_financiado SET taxa_juros=?, quantidade_parcelas=? WHERE id_forma_pagamento = ?";
                 PreparedStatement preparedStatement02 = connection.prepareStatement(codeSql);
-                preparedStatement02.setInt(1,idPagamento);
-                preparedStatement02.setDouble(2, pagamentoFinanciado.getTaxaJuros());
-                preparedStatement02.setInt(3, pagamentoFinanciado.getQuantidadeParcelas());
+                preparedStatement02.setDouble(1, pagamentoFinanciado.getTaxaJuros());
+                preparedStatement02.setInt(2, pagamentoFinanciado.getQuantidadeParcelas());
+                preparedStatement02.setInt(3,idPagamento);
                 preparedStatement02.executeUpdate();
             }
         } catch (SQLException e) {
